@@ -31,6 +31,17 @@ int main()
 		std::cout << *it << std::endl;
 		++it;
 	}
+	std::cout << "------- reverse -------" << std::endl;
+	MutantStack<int>::reverse_iterator rit = mstack.rbegin();
+	while (rit != mstack.rend())
+	{
+		std::cout << *rit << std::endl;
+		++rit;
+	}
+	MutantStack<int> copy(mstack);
+	copy = mstack;
+	const MutantStack<int> &constCopy = copy;
+	std::cout << "const copy top: " << constCopy.top() << std::endl;
 	std::stack<int> s(mstack);
 	std::cout << "-------" << std::endl;
 	std::cout << s.top() << std::endl;

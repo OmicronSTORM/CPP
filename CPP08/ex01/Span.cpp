@@ -1,4 +1,5 @@
 #include "Span.hpp"
+#include <iterator>
 
 Span::Span() : _size(0)
 {
@@ -27,46 +28,47 @@ Span &Span::operator=(const Span &copy)
 	return (*this);
 }
 
-void Span::addNumber(unsigned int n)
+void Span::addNumber(int n)
 {
 	if (_tab.size() >= _size)
 		throw std::runtime_error("Vector full");
 	_tab.push_back(n);
 }
 
-void Span::addNumber(std::vector<unsigned int>::iterator begin, std::vector<unsigned int>::iterator end)
+void Span::addNumber(std::vector<int>::const_iterator begin,
+	std::vector<int>::const_iterator end)
 {
-	if (_tab.size() >= _size)
+	std::vector<int>::difference_type count = std::distance(begin, end);
+	if (count < 0 || static_cast<unsigned int>(count) > _size - _tab.size())
 		throw std::runtime_error("Vector full");
-	for (std::vector<unsigned int>::iterator it = begin; it != end; it++)
-	{
-		if (_tab.size() >= _size)
-			throw std::runtime_error("Vector full");
-		_tab.push_back(*it);
-	}
+	_tab.insert(_tab.end(), begin, end);
 }
 
-int Span::shortestSpan()
+unsigned int Span::shortestSpan()
 {
 	if (_tab.size() <= 1)
 		throw std::runtime_error("Not enough number");
 	unsigned int shortest;
-	std::vector<unsigned int> tmp = _tab;
+	std::vector<int> tmp = _tab;
 	std::sort(tmp.begin(), tmp.end());
-	shortest = tmp[1] - tmp[0];
+	shortest = static_cast<unsigned int>(tmp[1])
+		- static_cast<unsigned int>(tmp[0]);
 	for (unsigned int i = 1; i < tmp.size(); i++)
 	{
-		if (tmp[i] - tmp[i - 1] < shortest)
-			shortest = tmp[i] - tmp[i - 1];
+		unsigned int span = static_cast<unsigned int>(tmp[i])
+			- static_cast<unsigned int>(tmp[i - 1]);
+		if (span < shortest)
+			shortest = span;
 	}
 	return (shortest);
 }
 
-int Span::longestSpan()
+unsigned int Span::longestSpan()
 {
 	if (_tab.size() <= 1)
 		throw std::runtime_error("Not enough number");
-	std::vector<unsigned int> tmp = _tab;
+	std::vector<int> tmp = _tab;
 	std::sort(tmp.begin(), tmp.end());
-	return (tmp[tmp.size() - 1] - tmp[0]);
+	return (static_cast<unsigned int>(tmp[tmp.size() - 1])
+		- static_cast<unsigned int>(tmp[0]));
 }

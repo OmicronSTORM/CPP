@@ -21,12 +21,17 @@ int main()
 	}
 	std::cout << "----------------" << std::endl;
 	Span sp2 = Span(10);
-	std::vector<unsigned int> array;
+	std::vector<int> array;
 	array.push_back(1);
 	array.push_back(2);
 	array.push_back(54);
 	sp2.addNumber(array.begin(), array.end());
 	std::cout << sp2.shortestSpan() << std::endl;
 	std::cout << sp2.longestSpan() << std::endl;
+	Span signedSpan(2);
+	signedSpan.addNumber(-10);
+	signedSpan.addNumber(10);
+	std::cout << signedSpan.shortestSpan() << std::endl;
+	std::cout << signedSpan.longestSpan() << std::endl;
 	return 0;
 }

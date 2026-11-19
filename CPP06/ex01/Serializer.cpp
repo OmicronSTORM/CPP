@@ -18,8 +18,7 @@ Serializer::~Serializer()
 
 Serializer &Serializer::operator=(const Serializer &copy)
 {
-	if (this != &copy)
-		*this = copy;
+	(void)copy;
 	return (*this);
 }
 

@@ -1,3 +1,5 @@
+#include <stdexcept>
+
 template <typename T>
 Array<T>::Array() : _arr(NULL), _size(0)
 {
@@ -27,11 +29,12 @@ Array<T> &Array<T>::operator=(const Array &copy)
 {
 	if (this != &copy)
 	{
-		delete[] this._arr;
-		this._arr = new T[copy._size];
-		this._size = copy._size;
-		for (int i = 0; i < copy._size; i++)
-			this._arr[i] = copy._arr[i];
+		T *newArr = new T[copy._size];
+		for (unsigned int i = 0; i < copy._size; i++)
+			newArr[i] = copy._arr[i];
+		delete[] _arr;
+		_arr = newArr;
+		_size = copy._size;
 	}
 	return (*this);
 }
@@ -40,7 +43,15 @@ template <typename T>
 T &Array<T>::operator[](unsigned int i)
 {
 	if (i >= _size)
-		throw std::runtime_error("Index out of bond");
+		throw std::runtime_error("Index out of bounds");
+	return (_arr[i]);
+}
+
+template <typename T>
+const T &Array<T>::operator[](unsigned int i) const
+{
+	if (i >= _size)
+		throw std::runtime_error("Index out of bounds");
 	return (_arr[i]);
 }
 

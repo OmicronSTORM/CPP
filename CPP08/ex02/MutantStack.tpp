@@ -6,9 +6,8 @@ MutantStack<T>::MutantStack()
 }
 
 template <typename T>
-MutantStack<T>::MutantStack(const MutantStack &copy)
+MutantStack<T>::MutantStack(const MutantStack &copy) : std::stack<T>(copy)
 {
-	*this = copy;
 }
 
 template <typename T>
@@ -20,7 +19,7 @@ template <typename T>
 MutantStack<T> &MutantStack<T>::operator=(const MutantStack &copy)
 {
 	if (this != &copy)
-		*this->c = copy.c;
+		this->c = copy.c;
 	return (*this);
 }
 

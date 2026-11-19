@@ -56,7 +56,7 @@ void identify(Base& p)
 	{}
 	try
 	{
-		dynamic_cast<A&>(p);
+		dynamic_cast<C&>(p);
 		return (std::cout << "C" << std::endl, (void)0);
 	}
 	catch (const std::exception &e)

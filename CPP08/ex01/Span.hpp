@@ -15,13 +15,13 @@ public:
 
 	Span &operator=(const Span &copy);
 
-	void addNumber(unsigned int n);
-	void addNumber(std::vector<unsigned int>::iterator begin, std::vector<unsigned int>::iterator end);
+	void addNumber(int n);
+	void addNumber(std::vector<int>::const_iterator begin, std::vector<int>::const_iterator end);
 
-	int shortestSpan();
-	int longestSpan();
+	unsigned int shortestSpan();
+	unsigned int longestSpan();
 
 private:
 	unsigned int			   _size;
-	std::vector<unsigned int>  _tab;
+	std::vector<int>		   _tab;
 };
